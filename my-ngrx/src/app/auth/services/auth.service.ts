@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { AuthResponseInterface } from '../types/authResponse.interface';
 import { RegisterRequestInterface } from '../types/registerRequest.interface';
+import { LoginRequestInterface } from '../types/loginRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,20 @@ export class AuthService {
     const url = environment.url + '/users';
 
     return this.http.post<AuthResponseInterface>(url, data).pipe(
-      map((res: AuthResponseInterface) => res.user)
+      map(this.getUser)
     );
+  }
+
+  login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
+    const url = environment.url + '/users/login';
+
+    return this.http.post<AuthResponseInterface>(url, data).pipe(
+      map(this.getUser)
+    );
+  }
+
+  private getUser(res: AuthResponseInterface): CurrentUserInterface {
+    return res.user;
   }
 
 }
