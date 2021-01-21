@@ -1,15 +1,15 @@
-import { PersistanceService } from './../../../shared/services/persistance.service';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
+import { PersistanceService } from '../../../shared/services/persistance.service';
 import { CurrentUserInterface } from '../../../shared/types/currentUser.interface';
 import { AuthService } from '../../services/auth.service';
 import { register_failureAction, register_succesAction, registerAction } from '../actions';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class RegisterEffect {
